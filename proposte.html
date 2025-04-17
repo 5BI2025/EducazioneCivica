@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Progetto Scuola Green | Prometeo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --slate: #2F4F4F;
+            --sage: #9CAF88;
+            --sand: #D2B48C;
+            --cream: #F5F5DC;
+            --sky: #87CEEB;
+            --light-green: rgba(156, 175, 136, 0.2);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--cream);
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Merriweather', serif;
+            font-weight: 700;
+            color: var(--slate);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--slate) 0%, var(--sage) 100%);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            width: 100%;
+        }
+        
+        .hero-title {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
+        }
+        
+        .hero-subtitle {
+            font-size: 1rem;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        .section {
+            padding: 30px 0;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .green-card {
+            background-color: var(--light-green);
+            border-left: 4px solid var(--sage);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 0 6px 6px 0;
+        }
+        
+        .card-title {
+            color: var(--sage);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .card-title span {
+            background-color: var(--slate);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .checklist {
+            list-style-type: none;
+            margin-top: 12px;
+            padding-left: 5px;
+        }
+        
+        .checklist li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.4;
+        }
+        
+        .checklist li:before {
+            content: "✓";
+            color: var(--sage);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        
+        .progress-container {
+            width: 100%;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .progress-bar {
+            height: 16px;
+            background-color: var(--sage);
+            border-radius: 8px;
+            width: 0%;
+            transition: width 1s;
+        }
+        
+        /* Stile Curiosità Sostenibili */
+        .fun-fact {
+            background: white;
+            border-radius: 6px;
+            padding: 18px;
+            margin-bottom: 18px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--sage);
+        }
+        
+        .fun-fact h3 {
+            color: var(--slate);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            font-size: 1.3rem;
+        }
+        
+        .fun-fact h3 span {
+            margin-right: 8px;
+            font-size: 1.3rem;
+        }
+        
+        .highlight {
+            background-color: var(--light-green);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+        
+        .quote {
+            font-style: italic;
+            padding: 12px;
+            border-left: 3px solid var(--sage);
+            margin: 15px 0;
+            background-color: rgba(156, 175, 136, 0.1);
+            font-size: 0.95rem;
+        }
+        
+        .footer {
+            background-color: var(--slate);
+            color: white;
+            text-align: center;
+            padding: 25px 15px;
+            margin-top: 30px;
+        }
+        
+        /* Ottimizzazioni per mobile */
+        @media (min-width: 400px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (min-width: 576px) {
+            .header {
+                padding: 60px 20px;
+            }
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .hero-subtitle {
+                font-size: 1.2rem;
+                max-width: 80%;
+            }
+            .container {
+                padding: 0 20px;
+            }
+            .card {
+                padding: 25px;
+            }
+            .card-title {
+                font-size: 1.6rem;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .header {
+                padding: 80px 20px;
+            }
+            .hero-title {
+                font-size: 3rem;
+            }
+            .hero-subtitle {
+                max-width: 700px;
+            }
+            .section {
+                padding: 40px 0;
+            }
+            .card-title span {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (min-width: 992px) {
+            .container {
+                padding: 0 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="hero-title">Scuola Green</h1>
+            <p class="hero-subtitle">Trasforma la tua scuola in un modello di sostenibilità ispirato al mito di Prometeo</p>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section class="section">
+            <div class="card">
+                <h2 class="card-title"><span>1</span> Il Nostro Obiettivo</h2>
+                <p>Come Prometeo portò il fuoco agli uomini, noi portiamo innovazione sostenibile alla scuola. Riduciamo l'impatto ambientale e creiamo consapevolezza attraverso azioni concrete.</p>
+                
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+                <p>Obiettivo: <span id="progress-text">0</span>% di riduzione CO₂ entro il 2025</p>
+            </div>
+        </section>
+        
+        <section class="section">
+            <div class="card">
+                <h2 class="card-title"><span>2</span> Progetti Green</h2>
+                
+                <!-- Progetto 1 -->
+                <div class="green-card">
+                    <h3>🌱 Orto Didattico</h3>
+                    <p>Creare un orto scolastico con piante autoctone per imparare la biodiversità e ridurre l'impronta carbonica.</p>
+                    
+                    <h4 style="margin-top: 15px; color: var(--slate); font-size: 1.1rem;">Come Fare:</h4>
+                    <ul class="checklist">
+                        <li>Scegliere un'area soleggiata (10-20 mq bastano per iniziare)</li>
+                        <li>Coinvolgere 2 classi per la manutenzione settimanale</li>
+                        <li>Piante consigliate: pomodori, zucchine, erbe aromatiche</li>
+                        <li>Usare compost dai rifiuti organici della mensa</li>
+                        <li>Creare un calendario delle semine con gli studenti</li>
+                    </ul>
+                </div>
+                
+                <!-- Progetto 2 -->
+                <div class="green-card">
+                    <h3>♻️ Raccolta Differenziata 2.0</h3>
+                    <p>Sistema di raccolta intelligente con monitoraggio dei rifiuti e premi per le classi più virtuose.</p>
+                    
+                    <h4 style="margin-top: 15px; color: var(--slate); font-size: 1.1rem;">Protocollo:</h4>
+                    <ul class="checklist">
+                        <li>Posizionare 4 contenitori per classe (carta, plastica, organico, indifferenziato)</li>
+                        <li>Nominare un "Green Monitor" per classe che registri i dati</li>
+                        <li>Organizzare un mercatino del riuso 2 volte l'anno</li>
+                        <li>Creare un tabellone con i risultati mensili</li>
+                    </ul>
+                </div>
+                
+                <!-- Progetto 3 -->
+                <div class="green-card">
+                    <h3>☀️ Energie Rinnovabili</h3>
+                    <p>Installazione di pannelli solari didattici per alimentare parte della scuola e laboratori scientifici.</p>
+                    
+                    <h4 style="margin-top: 15px; color: var(--slate); font-size: 1.1rem;">Azioni Concrete:</h4>
+                    <ul class="checklist">
+                        <li>Sostituire tutte le lampadine con LED (risparmio fino al 70%)</li>
+                        <li>Installare sensori di presenza nei corridoi e bagni</li>
+                        <li>Creare un "Green Friday" senza dispositivi elettronici</li>
+                        <li>Monitoraggio dei consumi con display in ingresso</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <div class="card">
+                <h2 class="card-title"><span>3</span> Scopri la Sostenibilità</h2>
+                <p>Curiosità e approfondimenti sul mondo della sostenibilità ambientale e dell'ecologia.</p>
+                
+                <div class="fun-fact">
+                    <h3><span>🌳</span> Lo sapevi che...</h3>
+                    <p>Un albero adulto assorbe in media <span class="highlight">10 kg di CO₂ all'anno</span>, ma può arrivare fino a 20-30 kg nel pieno della sua crescita. Questo significa che per compensare l'impronta carbonica media di un italiano (circa 7 tonnellate di CO₂ all'anno) servirebbero tra i 230 e i 700 alberi!</p>
+                    
+                    <div class="quote">
+                        "Se conoscessimo veramente il valore degli alberi, li pianteremmo anche nelle nostre case." - Richard St. Barbe Baker, pioniere dell'ambientalismo
+                    </div>
+                    
+                    <p>Nella nostra scuola, con l'orto didattico e le piante che stiamo coltivando, contribuiamo a questo importante processo di assorbimento della CO₂.</p>
+                </div>
+                
+                <div class="fun-fact">
+                    <h3><span>💧</span> L'acqua invisibile</h3>
+                    <p>Per produrre un foglio di carta A4 si consumano circa <span class="highlight">10 litri di acqua</span>. Questo è un esempio di "acqua virtuale", cioè la quantità d'acqua utilizzata lungo tutta la filiera produttiva di un bene.</p>
+                    
+                    <p>Ecco qualche altro esempio sorprendente:</p>
+                    <ul style="margin-left: 20px;">
+                        <li style="list-style-type: disc; margin-bottom: 8px;">1 maglietta di cotone: 2.700 litri</li>
+                        <li style="list-style-type: disc; margin-bottom: 8px;">1 hamburger: 2.400 litri</li>
+                        <li style="list-style-type: disc; margin-bottom: 8px;">1 tazzina di caffè: 140 litri</li>
+                    </ul>
+                    
+                    <p>Il nostro progetto di raccolta differenziata aiuta a ridurre questi consumi attraverso il riciclo della carta.</p>
+                </div>
+                
+                <div class="fun-fact">
+                    <h3><span>☀️</span> Il potenziale del sole</h3>
+                    <p>L'energia che la Terra riceve dal sole in <span class="highlight">un'ora sola</span> sarebbe sufficiente a soddisfare il fabbisogno energetico mondiale per un intero anno! Eppure, attualmente sfruttiamo solo una piccolissima frazione di questo potenziale.</p>
+                    
+                    <p>Alcuni dati interessanti sull'energia solare:</p>
+                    <ul style="margin-left: 20px;">
+                        <li style="list-style-type: disc; margin-bottom: 8px;">L'Italia è tra i paesi europei con la maggiore insolazione</li>
+                        <li style="list-style-type: disc; margin-bottom: 8px;">I pannelli solari moderni hanno un'efficienza del 15-20%</li>
+                        <li style="list-style-type: disc; margin-bottom: 8px;">Il costo dell'energia solare è diminuito dell'82% dal 2010</li>
+                    </ul>
+                    
+                    <p>Il nostro progetto di installazione dei pannelli solari didattici contribuisce a sfruttare questa risorsa infinita e pulita.</p>
+                </div>
+                
+                <div class="fun-fact">
+                    <h3><span>🔄</span> Economia circolare in numeri</h3>
+                    <p>Se tutto il mondo adottasse modelli di economia circolare, potremmo ridurre le emissioni globali di gas serra del <span class="highlight">39%</span> e l'uso di materie prime del <span class="highlight">28%</span> entro il 2030.</p>
+                    
+                    <p>Ecco come la nostra scuola partecipa a questa rivoluzione:</p>
+                    <ul style="margin-left: 20px;">
+                        <li style="list-style-type: disc; margin-bottom: 8px;">Mercatino del riuso: ogni edizione salva circa 200 oggetti dalla discarica</li>
+                        <li style="list-style-type: disc; margin-bottom: 8px;">Compostiera didattica: trasforma 30kg di scarti alimentari al mese in fertilizzante</li>
+                        <li style="list-style-type: disc; margin-bottom: 8px;">Laboratori creativi: ogni anno riutilizziamo circa 50kg di materiali di scarto</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="footer">
+        <div class="container">
+            <p>Progetto Prometeo - Educazione alla Sostenibilità</p>
+            <p>Daniele Rauco & Cristian Chiarilli</p>
+        </div>
+    </footer>
+
+    <script>
+        // Animazione progress bar globale
+        window.addEventListener('load', function() {
+            let progress = 0;
+            const target = 75;
+            const bar = document.getElementById('progress-bar');
+            const text = document.getElementById('progress-text');
+            
+            const interval = setInterval(() => {
+                progress += 1;
+                bar.style.width = progress + '%';
+                text.textContent = progress;
+                
+                if (progress >= target) {
+                    clearInterval(interval);
+                }
+            }, 30);
+        });
+    </script>
+</body>
+</html>

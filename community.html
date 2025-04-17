@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risorse Sostenibilità | Progetto Scuola Green</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --slate: #2F4F4F;
+            --sage: #9CAF88;
+            --sand: #D2B48C;
+            --cream: #F5F5DC;
+            --sky: #87CEEB;
+            --light-green: rgba(156, 175, 136, 0.2);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--cream);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Merriweather', serif;
+            font-weight: 700;
+            color: var(--slate);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--slate) 0%, var(--sage) 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .hero-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .section {
+            padding: 40px 0;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .resource-card {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--sage);
+            transition: transform 0.3s;
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .resource-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--slate);
+        }
+        
+        .resource-title {
+            font-size: 1.3rem;
+            color: var(--slate);
+            margin-bottom: 10px;
+        }
+        
+        .resource-description {
+            margin-bottom: 15px;
+            color: #555;
+        }
+        
+        .resource-link {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: var(--sage);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .resource-link:hover {
+            background-color: var(--slate);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--light-green);
+            color: var(--slate);
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .social-link:hover {
+            background-color: var(--sage);
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        .footer {
+            background-color: var(--slate);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .resource-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="hero-title">Risorse Sostenibilità</h1>
+            <p class="hero-subtitle">I migliori siti web e social media per approfondire lo sviluppo sostenibile</p>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section class="section">
+            <div class="card">
+                <h2 class="card-title">Siti Istituzionali e Organizzazioni</h2>
+                
+                <div class="resource-grid">
+                    <div class="resource-card">
+                        <div class="resource-icon">🌍</div>
+                        <h3 class="resource-title">ONU - Obiettivi Sviluppo Sostenibile</h3>
+                        <p class="resource-description">Il sito ufficiale delle Nazioni Unite con tutti i 17 SDGs, documenti, report e iniziative globali.</p>
+                        <a href="https://unric.org/it/agenda-2030/" class="resource-link" target="_blank">Visita il sito</a>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-icon">🇪🇺</div>
+                        <h3 class="resource-title">European Green Deal</h3>
+                        <p class="resource-description">La strategia dell'UE per raggiungere la neutralità climatica entro il 2050, con piani e finanziamenti.</p>
+                        <a href="https://ec.europa.eu/info/strategy/priorities-2019-2024/european-green-deal_it" class="resource-link" target="_blank">Visita il sito</a>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-icon">🌱</div>
+                        <h3 class="resource-title">Ministero della Transizione Ecologica</h3>
+                        <p class="resource-description">Normative, bandi e iniziative italiane per la transizione ecologica e lo sviluppo sostenibile.</p>
+                        <a href="https://www.mite.gov.it/" class="resource-link" target="_blank">Visita il sito</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <div class="card">
+                <h2 class="card-title">Blog e Piattaforme Educative</h2>
+                
+                <div class="resource-grid">
+                    <div class="resource-card">
+                        <div class="resource-icon">📚</div>
+                        <h3 class="resource-title">EcoWatch</h3>
+                        <p class="resource-description">Una delle principali fonti di notizie ambientali, con approfondimenti scientifici e soluzioni pratiche.</p>
+                        <a href="https://www.ecowatch.com/" class="resource-link" target="_blank">Visita il sito</a>
+                        <div class="social-links">
+                            <a href="https://www.facebook.com/ecowatch" class="social-link" target="_blank">f</a>
+                            <a href="https://twitter.com/ecowatch" class="social-link" target="_blank">𝕏</a>
+                            <a href="https://www.instagram.com/ecowatch/" class="social-link" target="_blank">📷</a>
+                        </div>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-icon">♻️</div>
+                        <h3 class="resource-title">National Geographic - Green</h3>
+                        <p class="resource-description">Sezione dedicata alla sostenibilità del famoso magazine, con storie da tutto il mondo.</p>
+                        <a href="https://www.nationalgeographic.com/environment/" class="resource-link" target="_blank">Visita il sito</a>
+                        <div class="social-links">
+                            <a href="https://www.facebook.com/NatGeoGreen/" class="social-link" target="_blank">f</a>
+                            <a href="https://twitter.com/NatGeoGreen" class="social-link" target="_blank">𝕏</a>
+                            <a href="https://www.instagram.com/natgeoenvironment/" class="social-link" target="_blank">📷</a>
+                        </div>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-icon">🌿</div>
+                        <h3 class="resource-title">GreenMe</h3>
+                        <p class="resource-description">Portale italiano con consigli pratici per uno stile di vita sostenibile e rispettoso dell'ambiente.</p>
+                        <a href="https://www.greenme.it/" class="resource-link" target="_blank">Visita il sito</a>
+                        <div class="social-links">
+                            <a href="https://www.facebook.com/greenMe.it/" class="social-link" target="_blank">f</a>
+                            <a href="https://twitter.com/greenMe_it" class="social-link" target="_blank">𝕏</a>
+                            <a href="https://www.instagram.com/greenme_it/" class="social-link" target="_blank">📷</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <div class="card">
+                <h2 class="card-title">Divulgazione e Influencer Ambientali</h2>
+                
+                <div class="resource-grid">
+                    <div class="resource-card">
+                        <div class="resource-icon">🌎</div>
+                        <h3 class="resource-title">Geopop</h3>
+                        <p class="resource-description">La piattaforma di divulgazione scientifica che tratta temi ambientali, sostenibilità e cambiamenti climatici.</p>
+                        <a href="https://www.geopop.it/" class="resource-link" target="_blank">Visita il sito</a>
+                        <div class="social-links">
+                            <a href="https://www.youtube.com/c/Geopop" class="social-link" target="_blank">▶️</a>
+                        </div>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-icon">🌊</div>
+                        <h3 class="resource-title">Alex Bellini</h3>
+                        <p class="resource-description">Esploratore e divulgatore ambientale, noto per i suoi progetti sui fiumi e la plastica negli oceani.</p>
+                        <a href="https://www.alexbellini.com/it/chi-sono/" class="resource-link" target="_blank">Visita il sito</a>
+                        <div class="social-links">
+                            <a href="https://www.youtube.com/@alex_bellini" class="social-link" target="_blank">▶️</a>
+                            <a href="https://it.linkedin.com/in/alexbellini1" class="social-link" target="_blank">in</a>
+                        </div>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-icon">♻️</div>
+                        <h3 class="resource-title">Teresa Agovino</h3>
+                        <p class="resource-description">Divulgatrice ambientale e autrice, specializzata in economia circolare e stili di vita sostenibili.</p>
+                        <a href="https://teresagovino.com/" class="resource-link" target="_blank">Visita il sito</a>
+                        <div class="social-links">
+                            <a href="https://www.facebook.com/agovinoteresa/" class="social-link" target="_blank">f</a>
+                            <a href="https://www.linkedin.com/in/teresa-agovino/" class="social-link" target="_blank">in</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <div class="card">
+                <h2 class="card-title">App e Strumenti Utili</h2>
+                
+                <div class="resource-grid">
+                    <div class="resource-card">
+                        <div class="resource-icon">📱</div>
+                        <h3 class="resource-title">Too Good To Go</h3>
+                        <p class="resource-description">App contro lo spreco alimentare che permette di acquistare cibo invenduto a prezzi ridotti.</p>
+                        <div class="social-links">
+                            <a href="https://www.toogoodtogo.com/it" class="resource-link" target="_blank">Scarica l'app</a>
+                        </div>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-icon">♻️</div>
+                        <h3 class="resource-title">Junker</h3>
+                        <p class="resource-description">App che aiuta a fare la raccolta differenziata scansionando i codici a barre dei prodotti.</p>
+                        <div class="social-links">
+                            <a href="https://www.junkerapp.it/" class="resource-link" target="_blank">Scarica l'app</a>
+                        </div>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-icon">🌲</div>
+                        <h3 class="resource-title">Forest</h3>
+                        <p class="resource-description">App che pianta alberi veri quando rimani concentrato senza usare il telefono.</p>
+                        <div class="social-links">
+                            <a href="https://www.forestapp.cc/" class="resource-link" target="_blank">Scarica l'app</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="footer">
+        <div class="container">
+            <p>Progetto Prometeo - Educazione alla Sostenibilità</p>
+            <p>Cristian Chiarilli & Daniele Rauco</p>
+        </div>
+    </footer>
+</body>
+</html>

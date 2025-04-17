@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Laboratorio Prometeo | Energia Sostenibile</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --slate: #2F4F4F;
+            --sage: #9CAF88;
+            --sand: #D2B48C;
+            --cream: #F5F5DC;
+            --sky: #87CEEB;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--cream);
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            -webkit-text-size-adjust: 100%;
+        }
+        
+        .lab-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        
+        h1 {
+            color: var(--slate);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            padding: 0 0.5rem;
+        }
+        
+        .activity-section {
+            background: white;
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        h2 {
+            color: var(--sage);
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            font-size: 1.3rem;
+        }
+        
+        h2 span {
+            background-color: var(--slate);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        
+        /* Calcolatore */
+        .calculator-form {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 0;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-weight: 600;
+            color: var(--slate);
+            font-size: 0.9rem;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 0.95rem;
+            background-color: white;
+            box-sizing: border-box;
+        }
+        
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.7rem center;
+            background-size: 0.9rem;
+        }
+        
+        button {
+            background-color: var(--sand);
+            color: #333;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 0.95rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+        
+        button:hover {
+            background-color: var(--sage);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        #result {
+            margin-top: 1.5rem;
+            padding: 1.2rem;
+            background-color: rgba(135, 206, 235, 0.15);
+            border-radius: 8px;
+            border-left: 4px solid var(--sky);
+            display: none;
+        }
+        
+        /* Quiz */
+        .quiz-container {
+            margin-top: 1.5rem;
+        }
+        
+        .scenario {
+            background-color: rgba(47, 79, 79, 0.1);
+            padding: 1.2rem;
+            border-radius: 6px;
+            margin-bottom: 1.2rem;
+            font-weight: 600;
+            border-left: 3px solid var(--slate);
+            font-size: 0.95rem;
+        }
+        
+        .choices {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.8rem;
+        }
+        
+        .choice {
+            background-color: white;
+            border: 2px solid var(--sage);
+            border-radius: 5px;
+            padding: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .choice:hover {
+            background-color: rgba(156, 175, 136, 0.2);
+        }
+        
+        .feedback {
+            margin-top: 1.2rem;
+            padding: 1.2rem;
+            border-radius: 6px;
+            display: none;
+            font-size: 0.9rem;
+        }
+        
+        .positive {
+            background-color: rgba(156, 175, 136, 0.2);
+            border-left: 3px solid var(--sage);
+        }
+        
+        .negative {
+            background-color: rgba(255, 107, 107, 0.1);
+            border-left: 3px solid #FF6B6B;
+        }
+        
+        /* Grafici */
+        .chart-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .chart-box {
+            background: white;
+            padding: 1.2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .chart-wrapper {
+            position: relative;
+            height: 250px;
+            width: 100%;
+        }
+        
+        .chart-title {
+            text-align: center;
+            margin-bottom: 0.8rem;
+            color: var(--slate);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        .chart-source {
+            text-align: right;
+            font-size: 0.7rem;
+            color: #666;
+            margin-top: 0.4rem;
+        }
+        
+        /* Media queries per tablet */
+        @media (min-width: 600px) {
+            .lab-container {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .activity-section {
+                padding: 1.5rem;
+            }
+            
+            .calculator-form {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            button {
+                grid-column: span 2;
+            }
+            
+            .choices {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* Media queries per desktop */
+        @media (min-width: 900px) {
+            .lab-container {
+                padding: 2rem;
+            }
+            
+            .chart-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .calculator-form {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+            
+            button {
+                grid-column: 1 / -1;
+                width: auto;
+                min-width: 200px;
+                justify-self: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="lab-container">
+        <h1>Laboratorio Didattico Interattivo</h1>
+        
+        <!-- Calcolatore d'Impatto -->
+        <div class="activity-section">
+            <h2><span>1</span> Calcolatore del Tuo Impatto Energetico</h2>
+            <div class="calculator-form">
+                <div class="form-group">
+                    <label for="electricity">Consumo elettrico mensile (kWh):</label>
+                    <input type="number" id="electricity" min="0" value="200">
+                    <small style="font-size:0.75rem; color:#666;">(La media italiana è 270 kWh/mese)</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="transport">Km percorsi in auto/mese:</label>
+                    <input type="number" id="transport" min="0" value="300">
+                    <small style="font-size:0.75rem; color:#666;">(La media italiana è 1,200 km/mese)</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="diet">Tipo di alimentazione:</label>
+                    <select id="diet">
+                        <option value="3">Molto carnivoro</option>
+                        <option value="2">Equilibrato</option>
+                        <option value="1">Vegetariano</option>
+                        <option value="0">Vegano</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="waste">Quantità rifiuti settimanali:</label>
+                    <select id="waste">
+                        <option value="3">Più di 2 sacchi</option>
+                        <option value="2">1-2 sacchi</option>
+                        <option value="1">Meno di 1 sacco</option>
+                        <option value="0">Compostaggio attivo</option>
+                    </select>
+                </div>
+                
+                <button id="calculate-btn">Calcola il Mio Impatto</button>
+            </div>
+            
+            <div id="result">
+                <h3>Il Tuo Punteggio di Sostenibilità: <span id="score">0</span>/100</h3>
+                <p id="feedback-text"></p>
+                <div id="improvements">
+                    <h4>Come migliorare:</h4>
+                    <ul id="improvement-list"></ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quiz Interattivi -->
+        <div class="activity-section">
+            <h2><span>2</span> Quiz: Le Sfide di Prometeo Moderno</h2>
+            <p>Metti alla prova la tua conoscenza sull'energia sostenibile con questi quiz ispirati al mito di Prometeo.</p>
+            
+            <div class="quiz-container">
+                <div class="scenario" id="scenario-text">
+                    Quanta energia solare potrebbe teoricamente soddisfare il fabbisogno energetico mondiale?
+                </div>
+                
+                <div class="choices" id="choices-container">
+                    <!-- Le scelte verranno inserite via JavaScript -->
+                </div>
+                
+                <div class="feedback" id="quiz-feedback">
+                    <h3 id="feedback-title"></h3>
+                    <p id="feedback-desc"></p>
+                    <p id="source-info"></p>
+                </div>
+                
+                <div style="text-align: center; margin-top: 1.5rem;">
+                    <button id="next-question">Prossima Domanda</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Grafici con Dati Reali -->
+        <div class="activity-section">
+            <h2><span>3</span> Dati Reali sull'Energia in Italia</h2>
+            <p>Esplora i dati ufficiali su consumi e produzione energetica in Italia (fonti ISTAT, ENEA, Terna).</p>
+            
+            <div class="chart-container">
+                <div class="chart-box">
+                    <h3 class="chart-title">Consumi Energetici per Settore (2022)</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="sectorChart"></canvas>
+                    </div>
+                    <div class="chart-source">Fonte: Ministero della Transizione Ecologica</div>
+                </div>
+                
+                <div class="chart-box">
+                    <h3 class="chart-title">Fonti Rinnovabili in Italia (2023)</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="renewableChart"></canvas>
+                    </div>
+                    <div class="chart-source">Fonte: TERNA - Dati preliminari</div>
+                </div>
+                
+                <div class="chart-box">
+                    <h3 class="chart-title">Emissioni CO₂ Pro Capite</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="emissionChart"></canvas>
+                    </div>
+                    <div class="chart-source">Fonte: Eurostat 2021</div>
+                </div>
+                
+                <div class="chart-box">
+                    <h3 class="chart-title">Prezzo Energia Elettrica (€/kWh)</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="priceChart"></canvas>
+                    </div>
+                    <div class="chart-source">Fonte: ARERA 2023</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Calcolatore d'Impatto
+        document.getElementById('calculate-btn').addEventListener('click', function() {
+            const electricity = parseInt(document.getElementById('electricity').value) || 0;
+            const transport = parseInt(document.getElementById('transport').value) || 0;
+            const diet = parseInt(document.getElementById('diet').value);
+            const waste = parseInt(document.getElementById('waste').value);
+            
+            // Calcolo punteggio basato su dati reali
+            let score = 100;
+            
+            // Punti per elettricità (basato su media italiana 270 kWh/mese)
+            if (electricity > 400) score -= 30;
+            else if (electricity > 270) score -= 20;
+            else if (electricity > 150) score -= 10;
+            else score -= 5;
+            
+            // Punti per trasporto (media italiana ~1,200 km/mese)
+            if (transport > 1000) score -= 30;
+            else if (transport > 600) score -= 20;
+            else if (transport > 300) score -= 15;
+            else score -= 5;
+            
+            // Punti per dieta (dati IPCC)
+            score -= diet * 8;
+            
+            // Punti per rifiuti (dati ISPRA)
+            score -= waste * 7;
+            
+            score = Math.max(0, Math.min(100, score));
+            
+            document.getElementById('score').textContent = score;
+            const feedbackText = document.getElementById('feedback-text');
+            const improvementList = document.getElementById('improvement-list');
+            
+            if (score >= 80) {
+                feedbackText.textContent = "⭐ Eccellente! La tua impronta ecologica è ben sotto la media italiana. Continua così!";
+            } else if (score >= 50) {
+                feedbackText.textContent = "✨ Buono! Sei sulla strada giusta, ma puoi ancora migliorare. Ecco come:";
+            } else {
+                feedbackText.textContent = "🌱 C'è molto spazio per migliorare! Ecco alcune azioni concrete:";
+            }
+            
+            // Suggerimenti basati sui dati
+            improvementList.innerHTML = "";
+            
+            if (electricity > 270) {
+                addSuggestion(`Riduci il consumo elettrico a <200 kWh/mese (-20% CO₂)`);
+                addSuggestion("Installa un monitoraggio energetico domestico");
+            }
+            
+            if (transport > 600) {
+                addSuggestion("Usa i mezzi pubblici 2 giorni/settimana (-100kg CO₂/anno)");
+                addSuggestion("Considera il car pooling per il lavoro/scuola");
+            }
+            
+            if (diet >= 2) {
+                addSuggestion("Riduci il consumo di carne rossa a 1-2 volte/settimana");
+            }
+            
+            if (waste >= 2) {
+                addSuggestion("Aumenta la differenziata al 75% (+30 punti)");
+            }
+            
+            function addSuggestion(text) {
+                const li = document.createElement("li");
+                li.textContent = text;
+                li.style.marginBottom = "0.5rem";
+                li.style.fontSize = "0.9rem";
+                improvementList.appendChild(li);
+            }
+            
+            document.getElementById('result').style.display = 'block';
+        });
+        
+        // Quiz Interattivo
+        const quizData = [
+            {
+                question: "Quanta energia solare potrebbe teoricamente soddisfare il fabbisogno energetico mondiale?",
+                choices: [
+                    "Circa il 10%",
+                    "Circa il 50%",
+                    "Oltre 10.000 volte il fabbisogno attuale",
+                    "Solo per piccoli dispositivi"
+                ],
+                correct: 2,
+                feedback: "Il sole irradia sulla Terra circa 10.000 volte più energia di quanto l'umanità consumi! (Fonte: NASA)",
+                source: "Dati NASA Earth Observatory"
+            },
+            {
+                question: "Qual è la fonte rinnovabile più utilizzata in Italia?",
+                choices: [
+                    "Eolica",
+                    "Solare fotovoltaico",
+                    "Idroelettrica",
+                    "Geotermica"
+                ],
+                correct: 2,
+                feedback: "L'idroelettrico copre circa il 40% della produzione rinnovabile italiana, grazie alla geografia alpina.",
+                source: "Rapporto TERNA 2023"
+            },
+            {
+                question: "Quanta energia si spreca lasciando in standby gli elettrodomestici?",
+                choices: [
+                    "Equivalente al consumo di 3 nazioni europee",
+                    "Circa l'1% del consumo totale",
+                    "Solo pochi watt, trascurabile",
+                    "Quanto il consumo di una lampadina accesa"
+                ],
+                correct: 0,
+                feedback: "Lo standby in UE spreca 45 TWh/anno, pari al consumo di Portogallo, Grecia e Ungheria insieme!",
+                source: "Studio Commissione Europea 2022"
+            }
+        ];
+        
+        let currentQuestion = 0;
+        const scenarioText = document.getElementById('scenario-text');
+        const choicesContainer = document.getElementById('choices-container');
+        const feedbackDiv = document.getElementById('quiz-feedback');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const feedbackDesc = document.getElementById('feedback-desc');
+        const sourceInfo = document.getElementById('source-info');
+        const nextBtn = document.getElementById('next-question');
+        
+        function loadQuestion(index) {
+            const q = quizData[index];
+            scenarioText.textContent = q.question;
+            
+            choicesContainer.innerHTML = '';
+            q.choices.forEach((choice, i) => {
+                const choiceEl = document.createElement('div');
+                choiceEl.className = 'choice';
+                choiceEl.textContent = choice;
+                choiceEl.dataset.index = i;
+                choiceEl.addEventListener('click', checkAnswer);
+                choicesContainer.appendChild(choiceEl);
+            });
+            
+            feedbackDiv.style.display = 'none';
+            nextBtn.style.display = 'none';
+        }
+        
+        function checkAnswer(e) {
+            const selectedIdx = parseInt(e.target.dataset.index);
+            const correctIdx = quizData[currentQuestion].correct;
+            
+            // Disabilita tutte le scelte
+            document.querySelectorAll('.choice').forEach(choice => {
+                choice.style.pointerEvents = 'none';
+                if (parseInt(choice.dataset.index) === correctIdx) {
+                    choice.style.border = '2px solid #2E8B57';
+                    choice.style.backgroundColor = 'rgba(46, 139, 87, 0.1)';
+                }
+                if (parseInt(choice.dataset.index) === selectedIdx && selectedIdx !== correctIdx) {
+                    choice.style.border = '2px solid #FF6B6B';
+                    choice.style.backgroundColor = 'rgba(255, 107, 107, 0.1)';
+                }
+            });
+            
+            // Mostra feedback
+            feedbackDiv.style.display = 'block';
+            if (selectedIdx === correctIdx) {
+                feedbackDiv.className = 'feedback positive';
+                feedbackTitle.textContent = "✅ Risposta Esatta!";
+            } else {
+                feedbackDiv.className = 'feedback negative';
+                feedbackTitle.textContent = "❌ Risposta Errata";
+            }
+            
+            feedbackDesc.textContent = quizData[currentQuestion].feedback;
+            sourceInfo.textContent = `Fonte: ${quizData[currentQuestion].source}`;
+            nextBtn.style.display = 'inline-block';
+        }
+        
+        nextBtn.addEventListener('click', function() {
+            currentQuestion = (currentQuestion + 1) % quizData.length;
+            loadQuestion(currentQuestion);
+        });
+        
+        loadQuestion(0);
+        
+        // Grafici con Dati Reali
+        // 1. Consumi per settore (fonte: MiTE 2022)
+        const sectorCtx = document.getElementById('sectorChart').getContext('2d');
+        new Chart(sectorCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Industria', 'Residenziale', 'Trasporti', 'Agricoltura', 'Servizi'],
+                datasets: [{
+                    label: 'Consumo (Mtep)',
+                    data: [25.3, 28.1, 35.7, 2.8, 12.5],
+                    backgroundColor: [
+                        'rgba(47, 79, 79, 0.7)',
+                        'rgba(156, 175, 136, 0.7)',
+                        'rgba(210, 180, 140, 0.7)',
+                        'rgba(135, 206, 235, 0.7)',
+                        'rgba(95, 158, 160, 0.7)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+        
+        // 2. Fonti rinnovabili (fonte: TERNA 2023 preliminare)
+        const renewableCtx = document.getElementById('renewableChart').getContext('2d');
+        new Chart(renewableCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Idroelettrico', 'Solare', 'Eolico', 'Bioenergie', 'Geotermico'],
+                datasets: [{
+                    data: [40, 25, 18, 12, 5],
+                    backgroundColor: [
+                        '#2F4F4F',
+                        '#FFD700',
+                        '#87CEEB',
+                        '#9CAF88',
+                        '#D2B48C'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            boxWidth: 12,
+                            padding: 20
+                        }
+                    }
+                }
+            }
+        });
+        
+        // 3. Emissioni CO₂ pro capite (fonte: Eurostat 2021)
+        const emissionCtx = document.getElementById('emissionChart').getContext('2d');
+        new Chart(emissionCtx, {
+            type: 'radar',
+            data: {
+                labels: ['Italia', 'UE Media', 'Germania', 'Francia', 'Svezia'],
+                datasets: [{
+                    label: 'Tonnellate CO₂ equivalente/pro capite',
+                    data: [5.4, 6.2, 7.9, 4.5, 3.4],
+                    backgroundColor: 'rgba(47, 79, 79, 0.2)',
+                    borderColor: '#2F4F4F'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+        
+        // 4. Prezzo energia elettrica (fonte: ARERA 2023)
+        const priceCtx = document.getElementById('priceChart').getContext('2d');
+        new Chart(priceCtx, {
+            type: 'line',
+            data: {
+                labels: ['2019', '2020', '2021', '2022', '2023'],
+                datasets: [{
+                    label: 'Prezzo energia (€/kWh)',
+                    data: [0.22, 0.20, 0.28, 0.48, 0.35],
+                    borderColor: '#9CAF88',
+                    backgroundColor: 'rgba(156, 175, 136, 0.1)',
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
